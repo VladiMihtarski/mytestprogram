@@ -1,0 +1,20 @@
+Sub FindSmallest()
+    Dim smallest As Double
+    Dim number As String
+    
+    smallest = 9999999 ' Íà÷àëíà ñòîéíîñò çà íàé-ìàëêîòî ÷èñëî
+    
+    number = InputBox("Enter a number")
+    
+    While number <> "Stop"
+        number = CDbl(number)
+        
+        If number < smallest Then
+            smallest = number
+        End If
+        
+        number = InputBox("Enter a number")
+    Wend
+    
+    MsgBox "The smallest number is: " & smallest
+End Sub
