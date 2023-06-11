@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Program</title>
+</head>
+<body>
+	<script>
+		// entering the weight of a single hit
+		var total_weight = parseFloat(prompt("1 удар без леяк: "));
+ 
+		// entering the number of slots
+		var quantity = parseInt(prompt("Брой гнезда: "));
+ 
+		// calculating the weight of a single piece
+		var piece_weight = total_weight / quantity;
+ 
+		// displaying the weight of a single piece
+		document.write("Теглото на един брой детайл е " + piece_weight.toFixed(5) + " грама.<br><br>");
+ 
+		// entering the number of parts that can be collected in a carton
+		var box_detail_count = parseInt(prompt("Количество в кашон бр. "));
+ 
+		// entering the weight of the carton
+		var box_weight = parseFloat(prompt("Тегло кашон килограми: "));
+ 
+		// calculating the total weight of the box
+		var box_weight_total = (piece_weight * box_detail_count)+ (box_weight * 1000);
+ 
+		// displaying the total weight of the box
+		document.write("Крайно тегло " + box_weight_total.toFixed(5) + "<br><br>");
+ 
+		// calculating the number of pieces in 1 kg
+		var weight_one_pcs = 1000 / piece_weight;
+ 
+		// displaying the number of pieces in 1 kg
+		document.write("Бройки в 1 кг " + weight_one_pcs.toFixed(5) + " бр/кг");
+	</script>
+</body>
+</html>
