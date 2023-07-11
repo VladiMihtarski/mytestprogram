@@ -26,6 +26,12 @@ void draw_pascal_pyramid(int height) {
 
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Pascal Pyramid");
 
+    sf::Font font;
+    if (!font.loadFromFile("arial.ttf")) {
+        std::cout << "Error loading font! " << std::endl;
+        return;
+    }
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -36,17 +42,24 @@ void draw_pascal_pyramid(int height) {
         window.clear(sf::Color::White);
 
         for (int i = 0; i < rows; i++) {
-            int offset = (cols - (i + 1)) / 2;
+            int offset = (cols - (2 * i + 1)) / 2;
             for (int j = 0; j <= i; j++) {
                 sf::RectangleShape square(sf::Vector2f(squareSize, squareSize));
-                square.setPosition((j + offset) * squareSize + padding, i * squareSize + padding);
+                square.setPosition((j * 2 + offset) * squareSize + padding, i * squareSize + padding);
                 square.setOutlineThickness(2);
                 square.setOutlineColor(sf::Color::Black);
                 window.draw(square);
 
                 int number = pascal_triangle[i][j];
-                sf::Text text(std::to_string(number), sf::Font::getDefaultFont(), 20);
-                text.setPosition((j + offset) * squareSize + padding + squareSize / 2 - 10, i * squareSize + padding + squareSize / 2 - 10);
+                sf::Text text;
+                text.setString(std::to_string(number));
+                text.setCharacterSize(20);
+                text.setFillColor(sf::Color::Black);
+                text.setStyle(sf::Text::Bold);
+                text.setFont(font);
+                sf::FloatRect textRect = text.getLocalBounds();
+                text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+                text.setPosition((j * 2 + offset) * squareSize + padding + squareSize / 2, i * squareSize + padding + squareSize / 2);
                 window.draw(text);
             }
         }
@@ -57,7 +70,7 @@ void draw_pascal_pyramid(int height) {
 
 int main() {
     int height;
-    std::cout << "Въведете височината на пирамидата: ";
+    std::cout << "Enter the height of the pyramid: ";
     std::cin >> height;
 
     draw_pascal_pyramid(height);
