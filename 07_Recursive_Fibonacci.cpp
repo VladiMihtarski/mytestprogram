@@ -5,9 +5,19 @@ int getFibonacci(int n) {
         return 0;
     } else if (n == 1) {
         return 1;
-    } else {
-        return getFibonacci(n - 1) + getFibonacci(n - 2);
     }
+
+    int prev1 = 0;
+    int prev2 = 1;
+    int current;
+
+    for (int i = 2; i <= n; i++) {
+        current = prev1 + prev2;
+        prev1 = prev2;
+        prev2 = current;
+    }
+
+    return current;
 }
 
 int main() {
@@ -15,7 +25,7 @@ int main() {
     int n;
     std::cin >> n;
 
-    // Изчисляване на (n+1)-вото число на Фибоначи
+    // Изчисляване на n-тото число на Фибоначи
     int fibonacci_number = getFibonacci(n + 1);
 
     // Извеждане на резултата
