@@ -1,1 +1,0 @@
-🚀 Embracing Python and C++ languages, I aim to conquer the universe of mechatronics with innovation and engineering prowess. I am constantly tinkering, upgrading, and adding technical marvels to my arsenal.
