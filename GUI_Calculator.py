@@ -6,7 +6,7 @@ calculation = ""
 def add_to_calculaton(number):
     global calculation
     calculation += str(number)
-    text_result.delete(1.0, calculation)
+    text_result.delete(1.0, "end")
     text_result.insert(1.0, calculation)
 
 
@@ -63,13 +63,14 @@ btn_divide = tk.Button(root, text="/", command=lambda: add_to_calculaton("/"), w
 btn_divide.grid(row=5, column=4)
 btn_open = tk.Button(root, text="(", command=lambda: add_to_calculaton("("), width=5, font=("Arial", 14))
 btn_open.grid(row=5, column=1)
-btn_clouse = tk.Button(root, text=")", command=lambda: add_to_calculaton(")"), width=5, font=("Arial", 14))
-btn_clouse.grid(row=5, column=3)
+btn_close = tk.Button(root, text=")", command=lambda: add_to_calculaton(")"), width=5, font=("Arial", 14))
+btn_close.grid(row=5, column=3)
 btn_clear = tk.Button(root, text="C", command=clear_field, width=11, font=("Arial", 14))
 btn_clear.grid(row=6, column=1, columnspan=2)
-btn_equals = tk.Button(root, text="=", command=clear_field, width=11, font=("Arial", 14))
+btn_equals = tk.Button(root, text="=", command=evaulate_calculation, width=11, font=("Arial", 14))
 btn_equals.grid(row=6, column=3, columnspan=2)
 root.mainloop()
+
 
 
 import tkinter as tk
