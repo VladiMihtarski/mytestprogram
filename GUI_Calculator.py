@@ -70,3 +70,65 @@ btn_clear.grid(row=6, column=1, columnspan=2)
 btn_equals = tk.Button(root, text="=", command=clear_field, width=11, font=("Arial", 14))
 btn_equals.grid(row=6, column=3, columnspan=2)
 root.mainloop()
+
+
+import tkinter as tk
+
+calculation = []
+
+def add_to_calculation(char):
+    calculation.append(char)
+    text_result.delete(1.0, "end")
+    text_result.insert(1.0, ''.join(calculation))
+
+def evaluate_calculation():
+    try:
+        result = str(eval(''.join(calculation)))
+        text_result.delete(1.0, "end")
+        text_result.insert(1.0, result)
+    except:
+        clear_field()
+        text_result.insert(1.0, "Error")
+
+def clear_field():
+    calculation.clear()
+    text_result.delete(1.0, "end")
+
+def create_button(root, text, row, column, width=5):
+    return tk.Button(root, text=text, command=lambda: add_to_calculation(text), width=width, font=("Arial", 14))
+
+root = tk.Tk()
+root.geometry("275x275")
+
+text_result = tk.Text(root, height=2, width=16, font=("Arial", 24))
+text_result.grid(columnspan=5)
+
+buttons = [
+    create_button(root, "1", 2, 1),
+    create_button(root, "2", 2, 2),
+    create_button(root, "3", 2, 3),
+    create_button(root, "4", 3, 1),
+    create_button(root, "5", 3, 2),
+    create_button(root, "6", 3, 3),
+    create_button(root, "7", 4, 1),
+    create_button(root, "8", 4, 2),
+    create_button(root, "9", 4, 3),
+    create_button(root, "0", 5, 2),
+    create_button(root, "+", 2, 4),
+    create_button(root, "-", 3, 4),
+    create_button(root, "*", 4, 4),
+    create_button(root, "/", 5, 4),
+    create_button(root, "(", 5, 1),
+    create_button(root, ")", 5, 3),
+]
+
+for button in buttons:
+    button.grid()
+
+btn_clear = create_button(root, "C", 6, 1, width=11)
+btn_clear.grid(row=6, column=1, columnspan=2)
+btn_equals = create_button(root, "=", 6, 3, width=11)
+btn_equals.config(command=evaluate_calculation)
+btn_equals.grid(row=6, column=3, columnspan=2)
+
+root.mainloop()
