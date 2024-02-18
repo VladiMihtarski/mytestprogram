@@ -1,0 +1,65 @@
+def print_matrix(matrix):
+    for row in matrix:
+        print(' '.join(row))
+
+def main():
+    n = int(input())
+    matrix = [list(input()) for _ in range(n)]
+
+    jet_position = None
+    enemies_remaining = sum(row.count('E') for row in matrix)
+    armor = 300
+    last_position = None
+
+    for i in range(n):
+        for j in range(n):
+            if matrix[i][j] == 'J':
+                jet_position = (i, j)
+                break
+        if jet_position:
+            break
+
+    directions = {'up': (-1, 0), 'down': (1, 0), 'left': (0, -1), 'right': (0, 1)}
+
+    while True:
+        command = input()
+        if command == 'end':
+            break
+
+        direction = directions[command]
+        new_position = (jet_position[0] + direction[0], jet_position[1] + direction[1])
+
+        if 0 <= new_position[0] < n and 0 <= new_position[1] < n:
+            jet_row, jet_col = new_position
+            if matrix[jet_row][jet_col] == 'E':
+                enemies_remaining -= 1
+                if enemies_remaining == 0:
+                    print("Mission accomplished! All enemy aircrafts neutralized!")
+                    matrix[jet_position[0]][jet_position[1]] = '-'
+                    last_position = new_position
+                    break
+                else:
+                    armor -= 100
+                    if armor <= 0:
+                        print(f"Mission failed! Your jet was shot down! Last position: {new_position[0]}, {new_position[1]}!")
+                        matrix[jet_position[0]][jet_position[1]] = '-'
+                        last_position = new_position
+                        break
+                    else:
+                        matrix[jet_position[0]][jet_position[1]] = '-'
+                        jet_position = new_position
+                        matrix[jet_row][jet_col] = '-'
+            elif matrix[jet_row][jet_col] == 'R':
+                armor = 300
+                matrix[jet_row][jet_col] = '-'
+                matrix[jet_position[0]][jet_position[1]] = '-'
+                jet_position = new_position
+            else:
+                matrix[jet_position[0]][jet_position[1]] = '-'
+                jet_position = new_position
+
+    matrix[last_position[0]][last_position[1]] = 'J'
+    print_matrix(matrix)
+
+if __name__ == "__main__":
+    main()
